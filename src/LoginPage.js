@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import GoogleSignIn from "./GoogleSignIn";
 
 function LoginPage() {
   return (
@@ -57,12 +58,7 @@ function LoginPage() {
             </button>
           </form>
           <div className="my-2 flex justify-center">Or</div>
-          <button
-            type="submit"
-            className="bg-white text-black py-4 px-4 rounded w-full border-2"
-          >
-            Continue with Google
-          </button>
+          <GoogleSignIn />
         </div>
       </div>
     </div>
