@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import PopupWindow from "./PopupWindow";
 
 function ProfilePage() {
   const { user, isAuthenticated } = useAuth0();
   const [currentPage, setcurrentPage] = useState();
   const itemsPerPage = 10;
+  const [isPopupOpen, setIsPopupOpen] = useState();
 
   // the total number of items
   const allItems = [
@@ -46,6 +48,10 @@ function ProfilePage() {
     setcurrentPage(page);
   };
 
+  const handlePopupWindowToggle = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
   return (
     isAuthenticated && (
       <div>
@@ -56,6 +62,20 @@ function ProfilePage() {
           </div>
 
           <div className="flex items-center space-x-4">
+            <button onClick={handlePopupWindowToggle}>
+              <img
+                src={require("./qrcode.png")}
+                alt="qrcode"
+                className="h-10"
+              ></img>
+            </button>
+
+            {/* popup window component */}
+            <PopupWindow
+              isOpen={isPopupOpen}
+              onClose={handlePopupWindowToggle}
+            />
+
             <img
               src={user.picture}
               alt={user.name}

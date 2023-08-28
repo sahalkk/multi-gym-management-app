@@ -10,7 +10,7 @@ function GoogleSignIn() {
       loginWithRedirect();
     } else {
       // Navigate to the profile page if already authenticated
-      navigate("/Profile");
+      navigate("/Dashboard");
     }
   };
 
