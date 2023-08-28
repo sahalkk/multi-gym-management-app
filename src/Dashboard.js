@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import PopupWindow from "./PopupWindow";
 
-function ProfilePage() {
+function Dashboard() {
   const { user, isAuthenticated } = useAuth0();
   const [currentPage, setcurrentPage] = useState();
   const itemsPerPage = 10;
@@ -139,4 +139,4 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;
+export default Dashboard;
