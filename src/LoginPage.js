@@ -4,9 +4,10 @@ import GoogleSignIn from "./GoogleSignIn";
 
 function LoginPage() {
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col lg:flex-row h-screen bg-black">
       {/* Description section */}
-      <div className="flex w-3/4 bg-blue-500 p-10">
+
+      <div className="flex bg-blue-500 p-10  lg:w-3/4 ">
         <div className="flex flex-col items-center justify-center text-white">
           <img
             src={require("./logo.png")}
@@ -24,7 +25,7 @@ function LoginPage() {
 
       {/* Login Form */}
 
-      <div className="w-1/2 bg-gray-100 flex items-center justify-center">
+      <div className="flex bg-gray-100  items-center justify-center lg:w-1/2 ">
         <div className="p-8 bg-white rounded shadow-md w-3/4">
           <h2 className="text-2xl font-bold mb-4">Login</h2>
           <form>
