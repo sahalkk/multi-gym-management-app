@@ -1,37 +1,15 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import PopupWindow from "./PopupWindow";
-
+import sampleDataSet from "./sampleDataSet";
 function Dashboard() {
   const { user, isAuthenticated } = useAuth0();
-  const [currentPage, setcurrentPage] = useState();
+  const [currentPage, setcurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [isPopupOpen, setIsPopupOpen] = useState();
 
   // the total number of items
-  const allItems = [
-    {
-      name: "ABC GYM, NYC",
-      date: "28/08/23",
-      time: "18:28",
-      duration: "1 hr",
-      status: "Active",
-    },
-    {
-      name: "ABC GYM, NYC",
-      date: "28/08/23",
-      time: "18:28",
-      duration: "1 hr",
-      status: "Active",
-    },
-    {
-      name: "ABC GYM, NYC",
-      date: "28/08/23",
-      time: "18:28",
-      duration: "1 hr",
-      status: "Active",
-    },
-  ];
+  const allItems = sampleDataSet;
 
   // Calculate index range of current page
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -102,11 +80,11 @@ function Dashboard() {
               {/* Loop through your data and render table rows */}
               {itemsOnPage.map((item, index) => (
                 <tr key={index}>
-                  <td className="text-center p-2">ABC GYM, NYC</td>
-                  <td className="text-center p-2">2023-08-26</td>
-                  <td className="text-center p-2">10:00 AM</td>
-                  <td className="text-center p-2">1 hour</td>
-                  <td className="text-center p-2">Active</td>
+                  <td className="text-center p-2">{item.name}</td>
+                  <td className="text-center p-2">{item.date}</td>
+                  <td className="text-center p-2">{item.time}</td>
+                  <td className="text-center p-2">{item.duration}</td>
+                  <td className="text-center p-2">{item.status}</td>
                 </tr>
               ))}
 
