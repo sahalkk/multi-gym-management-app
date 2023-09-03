@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import PopupWindow from "./PopupWindow";
 import sampleDataSet from "./sampleDataSet";
@@ -7,6 +7,10 @@ function Dashboard() {
   const [currentPage, setcurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [isPopupOpen, setIsPopupOpen] = useState();
+
+  useEffect(() => {
+    console.log("Dashboard", isAuthenticated);
+  });
 
   // the total number of items
   const allItems = sampleDataSet;
@@ -29,6 +33,8 @@ function Dashboard() {
   const handlePopupWindowToggle = () => {
     setIsPopupOpen(!isPopupOpen);
   };
+
+  const { logout } = useAuth0();
 
   return (
     isAuthenticated && (
@@ -91,22 +97,29 @@ function Dashboard() {
               {/* Add more rows as needed */}
             </tbody>
           </table>
-        </div>
-
-        <div className="flex justify-center mt-4">
-          {Array.from({ length: totalPages }).map((_, index) => (
+          <div>
             <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={`mx-1 px-2 py-1 ${
-                currentPage === index + 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
-              }`}
+              onClick={() => logout({ returnTo: window.location.origin })}
             >
-              {index + 1}
+              Logout
             </button>
-          ))}
+          </div>
+
+          <div className="flex justify-center mt-4">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`mx-1 px-2 py-1 ${
+                  currentPage === index + 1
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
         <p className="text-center mt-2">
           {startIndex + 1} to {Math.min(endIndex, allItems.length)} of{" "}
