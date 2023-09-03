@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import PopupWindow from "./PopupWindow";
 import sampleDataSet from "./sampleDataSet";
@@ -7,10 +7,6 @@ function Dashboard() {
   const [currentPage, setcurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [isPopupOpen, setIsPopupOpen] = useState();
-
-  useEffect(() => {
-    console.log("Dashboard", isAuthenticated);
-  });
 
   // the total number of items
   const allItems = sampleDataSet;
@@ -99,7 +95,10 @@ function Dashboard() {
           </table>
           <div>
             <button
-              onClick={() => logout({ returnTo: window.location.origin })}
+              onClick={() => {
+                localStorage.removeItem("user");
+                logout({ returnTo: window.location.origin });
+              }}
             >
               Logout
             </button>

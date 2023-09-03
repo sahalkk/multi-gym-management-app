@@ -1,8 +1,20 @@
 import React from "react";
 import "./App.css";
 import GoogleSignIn from "./GoogleSignIn";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const { user, isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/Dashboard");
+    }
+  });
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-black">
       {/* Description section */}
