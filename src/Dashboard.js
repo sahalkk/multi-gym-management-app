@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import PopupWindow from "./PopupWindow";
 import sampleDataSet from "./sampleDataSet";
+import { useNavigate } from "react-router-dom";
 function Dashboard() {
-  const { user, isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
   const [currentPage, setcurrentPage] = useState(1);
+  const [localUser, setLocalUser] = useState(null);
   const itemsPerPage = 10;
   const [isPopupOpen, setIsPopupOpen] = useState();
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setLocalUser(JSON.parse(localStorage.getItem("user")));
+    } else {
+      navigate("/");
+    }
+  }, [localUser]);
 
   // the total number of items
   const allItems = sampleDataSet;
@@ -33,7 +42,7 @@ function Dashboard() {
   const { logout } = useAuth0();
 
   return (
-    isAuthenticated && (
+    localStorage.getItem("user") && (
       <div>
         {/* Navbar */}
         <nav className="flex items-center justify-between p-4 bg-blue-500">
@@ -57,11 +66,11 @@ function Dashboard() {
             />
 
             <img
-              src={user.picture}
-              alt={user.name}
+              src={localUser?.picture}
+              alt={localUser?.name}
               className="h-10 rounded-full"
             />
-            <span className="text-white">{user.name}</span>
+            <span className="text-white">{localUser?.name}</span>
           </div>
         </nav>
 
