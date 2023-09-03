@@ -1,10 +1,10 @@
 function PopupWindow({ isOpen, onClose }) {
   return (
     <div
-      className={`fixed inset-0  ${isOpen ? "flex" : "hidden"} bg-black`}
+      className={`popupcss fixed inset-0 m-0 ${isOpen ? "flex" : "hidden"} `}
       onClick={onClose}
     >
-      <div className="flex flex-col bg-blue-200 rounded justify-around shadow-md m-auto sm:w-3/4 h-3/4 md:w-1/2 md:h-1/2">
+      <div className="flex flex-col bg-blue-200 rounded justify-around shadow-md m-auto md:w-1/2 md:h-1/2">
         {/* Contents of the pop-up */}
         <div className="flex flex-col items-center text-blue-900">
           <h3 className="mb-3 font-extrabold text-lg">Gym Checkin</h3>

@@ -13,6 +13,8 @@ function LoginPage() {
     if (isAuthenticated) {
       localStorage.setItem("user", JSON.stringify(user));
       navigate("/Dashboard");
+    } else if (localStorage.getItem("user")) {
+      navigate("/Dashboard");
     }
   });
   return (

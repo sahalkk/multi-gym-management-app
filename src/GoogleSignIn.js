@@ -1,17 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
-
 function GoogleSignIn() {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
-  const navigate = useNavigate();
-
+  const { loginWithRedirect } = useAuth0();
   const handleGoogleSignIn = () => {
-    if (!isAuthenticated) {
-      loginWithRedirect();
-    } else {
-      // Navigate to the profile page if already authenticated
-      navigate("/Dashboard");
-    }
+    loginWithRedirect();
   };
 
   return (

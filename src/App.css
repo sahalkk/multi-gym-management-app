@@ -1,0 +1,5 @@
+.popupcss{
+    min-width: 100vh;
+    margin : 0 !important;
+    background-color: rgba(134, 134, 134, 0.271) !important; 
+}

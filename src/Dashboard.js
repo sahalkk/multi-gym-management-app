@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import PopupWindow from "./PopupWindow";
 import sampleDataSet from "./sampleDataSet";
 import { useNavigate } from "react-router-dom";
+import ProfileMenu from "./ProfileMenu";
 function Dashboard() {
   const navigate = useNavigate();
   const [currentPage, setcurrentPage] = useState(1);
   const [localUser, setLocalUser] = useState(null);
   const itemsPerPage = 10;
   const [isPopupOpen, setIsPopupOpen] = useState();
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState();
+
   useEffect(() => {
     if (localStorage.getItem("user")) {
       setLocalUser(JSON.parse(localStorage.getItem("user")));
@@ -39,7 +41,9 @@ function Dashboard() {
     setIsPopupOpen(!isPopupOpen);
   };
 
-  const { logout } = useAuth0();
+  const handleProfileMenuToggle = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
 
   return (
     localStorage.getItem("user") && (
@@ -64,13 +68,21 @@ function Dashboard() {
               isOpen={isPopupOpen}
               onClose={handlePopupWindowToggle}
             />
-
-            <img
-              src={localUser?.picture}
-              alt={localUser?.name}
-              className="h-10 rounded-full"
+            <button
+              className="flex items-center"
+              onClick={handleProfileMenuToggle}
+            >
+              <img
+                src={localUser?.picture}
+                alt={localUser?.name}
+                className="h-10 rounded-full mx-1"
+              />
+              <span className="text-white">{localUser?.name}</span>
+            </button>
+            <ProfileMenu
+              isOpen={isProfileMenuOpen}
+              onClose={handleProfileMenuToggle}
             />
-            <span className="text-white">{localUser?.name}</span>
           </div>
         </nav>
 
@@ -102,17 +114,6 @@ function Dashboard() {
               {/* Add more rows as needed */}
             </tbody>
           </table>
-          <div>
-            <button
-              onClick={() => {
-                localStorage.removeItem("user");
-                logout({ returnTo: window.location.origin });
-              }}
-            >
-              Logout
-            </button>
-          </div>
-
           <div className="flex justify-center mt-4">
             {Array.from({ length: totalPages }).map((_, index) => (
               <button
